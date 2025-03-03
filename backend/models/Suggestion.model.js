@@ -21,6 +21,8 @@ const suggestionSchema = new Schema({
             ref: 'Comment'
         }
     ]
+}, {
+    timestamps: true
 });
 
 export const Suggestion = mongoose.model('Suggestion', suggestionSchema);
