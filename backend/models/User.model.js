@@ -20,7 +20,7 @@ const userSchema = new Schema({
     suggestions: [{
         type: Schema.Types.ObjectId,
         ref: 'Suggestion'
-    }],
+    }]
 }, {
     timestamps: true
 })

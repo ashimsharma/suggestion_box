@@ -100,4 +100,28 @@ const login = async (req, res) => {
         console.log(error?.message);
     }
 }
-export {signup, login};
+
+const isAuthenticated = (req, res) => {
+    const user = req?.user;
+
+    if (!user) {
+        return res
+            .status(401)
+            .json(
+                {
+                    message: "Unauthorized Request."
+                }
+            )
+    }
+
+    return res
+        .status(200)
+        .json(
+            {
+                message: "Authorized User.",
+                data: { role: user.role }
+            }
+        )
+}
+
+export {signup, login, isAuthenticated};

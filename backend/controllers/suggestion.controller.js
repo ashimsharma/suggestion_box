@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { Suggestion } from "../models/Suggestion.model.js";
 import { User } from "../models/User.model.js";
 import { Comment } from "../models/Comment.model.js";
+import { checkMessage } from "../utils/index.js";
 
 const postSuggestion = async (req, res) => {
     try {
@@ -18,6 +19,9 @@ const postSuggestion = async (req, res) => {
 
         const { suggestion } = req?.body;
 
+
+        let flagged = await checkMessage(suggestion);
+
         if (!suggestion || suggestion.trim() === "") {
             return res.status(301)
                 .json(
@@ -27,7 +31,7 @@ const postSuggestion = async (req, res) => {
                 )
         }
 
-        const createdSuggestion = await Suggestion.create({ owner: user._id, body: suggestion });
+        const createdSuggestion = await Suggestion.create({ owner: user._id, body: suggestion, flagged });
 
         const createdUser = await User.findByIdAndUpdate(user._id, { $push: { suggestions: createdSuggestion._id } }, { new: true });
 

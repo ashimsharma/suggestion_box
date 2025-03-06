@@ -20,7 +20,11 @@ const suggestionSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Comment'
         }
-    ]
+    ],
+    flagged: {
+        type: Boolean,
+        required: true
+    }
 }, {
     timestamps: true
 });
